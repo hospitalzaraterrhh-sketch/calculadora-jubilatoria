@@ -368,19 +368,8 @@ def generar_pdf(
     return buffer.getvalue()
 
 st.set_page_config(page_title=APP_TITLE, page_icon="📋", layout="wide")
-logo_izquierdo, logo_central, logo_derecho = st.columns([2.3, 1, 2.3], vertical_alignment="center")
-with logo_izquierdo:
-    if LOGO_1.exists():
-        st.image(str(LOGO_1), width="stretch")
-with logo_central:
-    if LOGO_2.exists():
-        st.image(str(LOGO_2), width="stretch")
-with logo_derecho:
-    if LOGO_3.exists():
-        st.image(str(LOGO_3), width="stretch")
-
-st.title("📋 Calculadora Jubilatoria")
-st.caption("Estimación orientativa de servicios, edad requerida y cumplimiento de requisitos.")
+st.title("🏛️ Calculadora Jubilatoria")
+st.caption("Régimen IPS - Provincia de Buenos Aires")
 
 with st.form("formulario_calculo"):
     col_datos, col_calculo = st.columns(2)
@@ -522,3 +511,10 @@ with st.expander("Criterios utilizados"):
         - El resultado es orientativo y debe validarse con el organismo previsional competente.
         """
     )
+st.markdown("---")
+
+st.caption(
+    "Desarrollado por Narela Berenice Altamirano | "
+    "RRHH Hospital Virgen del Carmen | "
+    "Versión 1.0"
+)
