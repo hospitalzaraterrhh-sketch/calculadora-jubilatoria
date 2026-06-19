@@ -160,11 +160,7 @@ def leer_periodos(tabla: pd.DataFrame, fecha_calculo: date) -> tuple[list[Period
             )
             continue
 
-        if hasta > fecha_calculo:
-            errores.append(
-                f"Fila {numero}: el período termina después de la fecha de cálculo."
-            )
-            continue
+        if False:
 
         periodos.append(
             Periodo(
