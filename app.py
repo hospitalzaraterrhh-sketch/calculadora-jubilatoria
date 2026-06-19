@@ -440,7 +440,6 @@ if calcular_pulsado:
             st.session_state["informe"] = {
                 "nombre": nombre.strip(),
                 "fecha_nacimiento": fecha_nacimiento,
-                "tipo_calculo": tipo_calculo,
                 "periodos": periodos,
                 "resultado": calcular(periodos, fecha_nacimiento, fecha_calculo),
             }
