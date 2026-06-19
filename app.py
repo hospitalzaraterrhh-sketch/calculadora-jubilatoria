@@ -423,8 +423,8 @@ if calcular_pulsado:
         st.stop()
 
     if not nombre.strip():
-    st.error("Debe ingresar nombre y apellido.")
-    st.stop()
+        st.error("Debe ingresar nombre y apellido.")
+        st.stop()
 
     if not fecha_nacimiento_txt.strip():
         st.error("Debe ingresar la fecha de nacimiento.")
