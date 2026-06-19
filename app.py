@@ -143,15 +143,15 @@ def leer_periodos(tabla: pd.DataFrame, fecha_calculo: date) -> tuple[list[Period
 
     for indice, fila in tabla.iterrows():
         numero = int(indice) + 1 if isinstance(indice, int) else len(periodos) + 1
-        desde = normalizar_fecha(fila.get("Desde"))
+         = normalizar_fecha(fila.get(""))
         hasta = normalizar_fecha(fila.get("Hasta"))
 
-        if desde is None and hasta is None:
+        if  is None and hasta is None:
             continue
-        if desde is None or hasta is None:
+        if  is None or hasta is None:
             errores.append(f"Fila {numero}: debe completar las dos fechas.")
             continue
-        if hasta < desde:
+        if hasta < :
             errores.append(f"Fila {numero}: la fecha 'Hasta' es anterior a 'Desde'.")
             continue
         if hasta > fecha_calculo:
@@ -391,8 +391,8 @@ with st.form("formulario_calculo"):
         width="stretch",
         hide_index=True,
         column_config={
-            "Desde": st.column_config.DateColumn("Desde", format="DD/MM/YYYY", max_value=date.today()),
-            "Hasta": st.column_config.DateColumn("Hasta", format="DD/MM/YYYY", max_value=date.today()),
+            "Desde": st.column_config.DateColumn("Desde", format="DD/MM/YYYY"),
+            "Hasta": st.column_config.DateColumn("Hasta", format="DD/MM/YYYY"),
             "Aportes": st.column_config.SelectboxColumn("Aportes", options=["14%", "16%"], required=True),
             "Tipo": st.column_config.SelectboxColumn("Tipo", options=TIPOS_SERVICIO),
             "Observaciones": st.column_config.TextColumn("Observaciones", max_chars=250),
