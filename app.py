@@ -242,25 +242,9 @@ def generar_pdf(
         textColor=colors.HexColor("#17324D"),
         spaceAfter=12,
     )
-    cabecera_logos = Table(
-        [[
-            imagen_pdf(LOGO_1, 55 * mm, 16 * mm),
-            imagen_pdf(LOGO_2, 25 * mm, 25 * mm),
-            imagen_pdf(LOGO_3, 55 * mm, 16 * mm),
-        ]],
-        colWidths=[62 * mm, 46 * mm, 62 * mm],
-    )
-    cabecera_logos.setStyle(
-        TableStyle(
-            [
-                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
-            ]
-        )
-    )
     elementos = [
-        cabecera_logos,
+    Paragraph("INFORME JUBILATORIO", titulo),
+    elementos = [
         Paragraph("INFORME JUBILATORIO", titulo),
         Paragraph(f"<b>Nombre:</b> {nombre or 'No informado'}", estilos["Normal"]),
         Paragraph(f"<b>Fecha de nacimiento:</b> {fecha_nacimiento:%d/%m/%Y}", estilos["Normal"]),
