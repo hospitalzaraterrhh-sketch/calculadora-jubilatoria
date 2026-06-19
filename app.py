@@ -368,10 +368,10 @@ with st.form("formulario_calculo"):
         )
     
     with col_calculo:
-    fecha_calculo_txt = st.text_input(
-        "Fecha de cálculo (dd/mm/aaaa)",
-        value=date.today().strftime("%d/%m/%Y")
-    )
+        fecha_calculo_txt = st.text_input(
+            "Fecha de cálculo (dd/mm/aaaa)",
+            value=date.today().strftime("%d/%m/%Y")
+        )
     st.subheader("Servicios")
     st.caption("Agregue un renglón por cada período. Los días inicial y final se computan.")
     base = pd.DataFrame(
@@ -424,13 +424,7 @@ if calcular_pulsado:
     if not fecha_nacimiento_txt.strip():
         st.error("Debe ingresar la fecha de nacimiento.")
         st.stop()
-    if tipo_calculo != "Prorrateo de IPS":
-        st.error(
-            f"El régimen '{tipo_calculo}' todavía no tiene una fórmula configurada. "
-            "No se generó un resultado para evitar una estimación incorrecta."
-        )
-        st.session_state.pop("informe", None)
-    elif fecha_nacimiento >= fecha_calculo:
+    if fecha_nacimiento >= fecha_calculo:
         st.error("La fecha de nacimiento debe ser anterior a la fecha de cálculo.")
         st.session_state.pop("informe", None)
     else:
