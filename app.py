@@ -421,7 +421,15 @@ if calcular_pulsado:
             "Las fechas deben ingresarse en formato dd/mm/aaaa y ser válidas."
         )
         st.stop()
-    if tipo_calculo != "Prorrateo de IPS":
+
+    if not nombre.strip():
+    st.error("Debe ingresar nombre y apellido.")
+    st.stop()
+
+    if not fecha_nacimiento_txt.strip():
+        st.error("Debe ingresar la fecha de nacimiento.")
+        st.stop()
+        if tipo_calculo != "Prorrateo de IPS":
         st.error(
             f"El régimen '{tipo_calculo}' todavía no tiene una fórmula configurada. "
             "No se generó un resultado para evitar una estimación incorrecta."
