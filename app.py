@@ -484,7 +484,6 @@ if "informe" in st.session_state:
     pdf = generar_pdf(
         informe["nombre"],
         informe["fecha_nacimiento"],
-        informe["tipo_calculo"],
         informe["periodos"],
         resultado,
     )
