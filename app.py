@@ -249,7 +249,6 @@ def generar_pdf(
     Paragraph(f"<b>Nombre:</b> {nombre or 'No informado'}", estilos["Normal"]),
     Paragraph(f"<b>Fecha de nacimiento:</b> {fecha_nacimiento:%d/%m/%Y}", estilos["Normal"]),
     Paragraph(f"<b>Fecha de cálculo:</b> {resultado.fecha_calculo:%d/%m/%Y}", estilos["Normal"]),
-    Paragraph(f"<b>Tipo de cálculo:</b> {tipo_calculo}", estilos["Normal"]),
     Spacer(1, 10),
 ]
 
