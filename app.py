@@ -401,22 +401,23 @@ with st.form("formulario_calculo"):
     )
     calcular_pulsado = st.form_submit_button("Calcular", type="primary", width="stretch")
 if calcular_pulsado:
+    
     try:
-    fecha_nacimiento = datetime.strptime(
+        fecha_nacimiento = datetime.strptime(
         fecha_nacimiento_txt,
         "%d/%m/%Y"
-    ).date()
+        ).date()
 
-    fecha_calculo = datetime.strptime(
+        fecha_calculo = datetime.strptime(
         fecha_calculo_txt,
         "%d/%m/%Y"
-    ).date()
+        ).date()
 
-except ValueError:
-    st.error(
-        "Las fechas deben ingresarse en formato dd/mm/aaaa y ser válidas."
-    )
-    st.stop()
+    except ValueError:
+        st.error(
+            "Las fechas deben ingresarse en formato dd/mm/aaaa y ser válidas."
+        )
+        st.stop()
     if tipo_calculo != "Prorrateo de IPS":
         st.error(
             f"El régimen '{tipo_calculo}' todavía no tiene una fórmula configurada. "
