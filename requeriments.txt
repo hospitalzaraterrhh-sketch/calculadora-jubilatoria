@@ -4,4 +4,3 @@ python-dateutil
 reportlab
 pillow
 openpyxl
-agregar requeriments
