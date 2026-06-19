@@ -355,26 +355,25 @@ st.caption("Régimen IPS - Provincia de Buenos Aires")
 
 with st.form("formulario_calculo"):
     col_datos, col_calculo = st.columns(2)
+
     with col_datos:
         nombre = st.text_input("Nombre y apellido")
-        fecha_nacimiento = st.date_input(
-            "Fecha de nacimiento",
-            value=date(1980, 1, 1),
-            min_value=date(1900, 1, 1),
-            max_value=date.today(),
-            format="DD/MM/YYYY",
-        )
-    with col_calculo:
-        tipo_calculo = st.selectbox("Tipo de cálculo", TIPOS_CALCULO)
-        fecha_calculo = st.date_input(
-            "Fecha de cálculo",
-            value=date.today(),
-            min_value=fecha_nacimiento,
-            max_value=date.today(),
-            format="DD/MM/YYYY",
-            help="Permite reproducir un cálculo realizado en una fecha anterior.",
+
+        fecha_nacimiento_txt = st.text_input(
+            "Fecha de nacimiento (dd/mm/aaaa)",
+            value="01/01/1980"
         )
 
+    with col_calculo:
+        tipo_calculo = st.selectbox(
+            "Tipo de cálculo",
+            TIPOS_CALCULO
+        )
+
+        fecha_calculo_txt = st.text_input(
+            "Fecha de cálculo (dd/mm/aaaa)",
+            value=date.today().strftime("%d/%m/%Y")
+        )
     st.subheader("Servicios")
     st.caption("Agregue un renglón por cada período. Los días inicial y final se computan.")
     base = pd.DataFrame(
@@ -392,8 +391,8 @@ with st.form("formulario_calculo"):
         width="stretch",
         hide_index=True,
         column_config={
-            "Desde": st.column_config.DateColumn("Desde", format="DD/MM/YYYY", max_value=fecha_calculo),
-            "Hasta": st.column_config.DateColumn("Hasta", format="DD/MM/YYYY", max_value=fecha_calculo),
+            "Desde": st.column_config.DateColumn("Desde", format="DD/MM/YYYY", max_value=date.today()),
+            "Hasta": st.column_config.DateColumn("Hasta", format="DD/MM/YYYY", max_value=date.today()),
             "Aportes": st.column_config.SelectboxColumn("Aportes", options=["14%", "16%"], required=True),
             "Tipo": st.column_config.SelectboxColumn("Tipo", options=TIPOS_SERVICIO),
             "Observaciones": st.column_config.TextColumn("Observaciones", max_chars=250),
@@ -401,8 +400,23 @@ with st.form("formulario_calculo"):
         key="tabla_servicios",
     )
     calcular_pulsado = st.form_submit_button("Calcular", type="primary", width="stretch")
-
 if calcular_pulsado:
+    try:
+    fecha_nacimiento = datetime.strptime(
+        fecha_nacimiento_txt,
+        "%d/%m/%Y"
+    ).date()
+
+    fecha_calculo = datetime.strptime(
+        fecha_calculo_txt,
+        "%d/%m/%Y"
+    ).date()
+
+except ValueError:
+    st.error(
+        "Las fechas deben ingresarse en formato dd/mm/aaaa y ser válidas."
+    )
+    st.stop()
     if tipo_calculo != "Prorrateo de IPS":
         st.error(
             f"El régimen '{tipo_calculo}' todavía no tiene una fórmula configurada. "
