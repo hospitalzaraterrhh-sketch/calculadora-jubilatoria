@@ -159,9 +159,7 @@ def leer_periodos(tabla: pd.DataFrame, fecha_calculo: date) -> tuple[list[Period
                 f"Fila {numero}: la fecha 'Hasta' es anterior a 'Desde'."
             )
             continue
-
-        if False:
-
+            
         periodos.append(
             Periodo(
                 desde=desde,
