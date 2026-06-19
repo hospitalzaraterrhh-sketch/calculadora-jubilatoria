@@ -222,7 +222,6 @@ def imagen_pdf(ruta: Path, ancho: float, alto: float) -> Image | Spacer:
 def generar_pdf(
     nombre: str,
     fecha_nacimiento: date,
-    tipo_calculo: str,
     periodos: list[Periodo],
     resultado: Resultado,
 ) -> bytes:
