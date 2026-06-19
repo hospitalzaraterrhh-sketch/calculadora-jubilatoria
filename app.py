@@ -143,24 +143,28 @@ def leer_periodos(tabla: pd.DataFrame, fecha_calculo: date) -> tuple[list[Period
 
     for indice, fila in tabla.iterrows():
         numero = int(indice) + 1 if isinstance(indice, int) else len(periodos) + 1
+
         desde = normalizar_fecha(fila.get("Desde"))
+        hasta = normalizar_fecha(fila.get("Hasta"))
 
-    if desde is None and hasta is None:
-        continue
+        if desde is None and hasta is None:
+            continue
 
-    if desde is None or hasta is None:
-        errores.append(f"Fila {numero}: debe completar las dos fechas.")
-        continue
+        if desde is None or hasta is None:
+            errores.append(f"Fila {numero}: debe completar las dos fechas.")
+            continue
 
-    if hasta < desde:
-        errores.append(f"Fila {numero}: la fecha 'Hasta' es anterior a 'Desde'.")
-        continue
-    if hasta < desde:
-        errores.append(f"Fila {numero}: la fecha 'Hasta' es anterior a 'Desde'.")
-        continue
-    if hasta > fecha_calculo:
-        errores.append(f"Fila {numero}: el período termina después de la fecha de cálculo.")
-        continue
+        if hasta < desde:
+            errores.append(
+                f"Fila {numero}: la fecha 'Hasta' es anterior a 'Desde'."
+            )
+            continue
+
+        if hasta > fecha_calculo:
+            errores.append(
+                f"Fila {numero}: el período termina después de la fecha de cálculo."
+            )
+            continue
 
         periodos.append(
             Periodo(
@@ -173,6 +177,7 @@ def leer_periodos(tabla: pd.DataFrame, fecha_calculo: date) -> tuple[list[Period
         )
 
     ordenados = sorted(periodos, key=lambda periodo: (periodo.desde, periodo.hasta))
+
     for anterior, actual in zip(ordenados, ordenados[1:]):
         if actual.desde <= anterior.hasta:
             errores.append(
